@@ -108,7 +108,9 @@ module ExtractsPath
       request.format = :atom
     end
 
-    path = CGI::unescape(request.fullpath.dup)
+    raw_path = "#{request.path_info}#{request.query_string.empty? ? '?'+request.query_string : ''}"
+
+    path = CGI::unescape(raw_path)
 
     @ref, @path = extract_ref(path)
 
